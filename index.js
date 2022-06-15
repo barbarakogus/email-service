@@ -3,7 +3,7 @@ const cors = require('cors');
 const mailService = require('./mailService');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = email-service.barbarakogus.com || 3000;
 
 app.use(express.json());
 app.use(cors());
