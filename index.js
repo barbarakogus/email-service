@@ -15,7 +15,7 @@ app.get('/ping', async (_, res) => {
 app.post('/email', async(req, res) => {
     const emailReq = req.body;
     mailService.sendMail(emailReq);
-    res.status(201);
+    res.status(200);
     res.end();
 });
 
