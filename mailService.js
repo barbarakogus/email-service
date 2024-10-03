@@ -1,16 +1,22 @@
 const nodemailer = require('nodemailer');
 
-const sendMail = (emailReq) => {
+const sendMail = async (emailReq) => {
 
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: 'Gmail',
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
-            type: 'OAuth2',
-            user: process.env.EMAIL,
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
-            accessToken: process.env.ACCESS_TOKEN
+            user: process.env.USER, 
+            pass: process.env.PASS 
+            //user: process.env.EMAIL,
+            //type: 'OAuth2',
+            //clientId: process.env.CLIENT_ID,
+            //clientSecret: process.env.CLIENT_SECRET,
+            //refreshToken: process.env.REFRESH_TOKEN,
+            //accessToken: process.env.ACCESS_TOKEN
+            
         }
     })
 
@@ -21,13 +27,17 @@ const sendMail = (emailReq) => {
         text: `The ${emailReq.name}, email: ${emailReq.email} wants to contact you. Message: ${emailReq.message}`
     }
 
-    transporter.sendMail(options, (err, info) => {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log('email send ' + info.response)
-        }
-    })
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(options, (err, info) => {
+            if (err) {
+                console.log('mailService', err);
+                reject(err); 
+            } else {
+                console.log('email sent ' + info.response);
+                resolve(info);
+            }
+        });
+    });
 }
 
 module.exports = { sendMail }
