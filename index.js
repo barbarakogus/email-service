@@ -15,11 +15,10 @@ app.get('/ping', async (_, res) => {
 app.post('/email', async (req, res) => {
     const emailReq = req.body;
     try {
-        await mailService.sendMail(emailReq);
-        res.status(200);
+        await mailService.sendMail(emailReq)
+        res.status(200)
     } catch (err) {
-        res.status(400)
-        throw err
+        res.status(500)
     }
     res.end();
 });

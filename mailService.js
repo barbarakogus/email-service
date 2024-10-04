@@ -10,21 +10,14 @@ const sendMail = async (emailReq) => {
         auth: {
             user: process.env.USER, 
             pass: process.env.PASS 
-            //user: process.env.EMAIL,
-            //type: 'OAuth2',
-            //clientId: process.env.CLIENT_ID,
-            //clientSecret: process.env.CLIENT_SECRET,
-            //refreshToken: process.env.REFRESH_TOKEN,
-            //accessToken: process.env.ACCESS_TOKEN
-            
         }
     })
 
     const options = {
-        from: process.env.EMAIL,
+        from: process.env.USER,
         to: process.env.EMAIL,
-        subject: emailReq.subject || 'contact made by portfolio site',
-        text: `The ${emailReq.name}, email: ${emailReq.email} wants to contact you. Message: ${emailReq.message}`
+        subject: emailReq.subject || 'Contact made by portfolio site',
+        text: `${emailReq.name}, email: ${emailReq.email} wants to contact you. Message: ${emailReq.message}`
     }
 
     return new Promise((resolve, reject) => {
